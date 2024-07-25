@@ -5,7 +5,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
+
+# Define the Liquid Neural Network
 class LiquidNeuralNetwork(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, output_size):
         super(LiquidNeuralNetwork, self).__init__()
@@ -26,6 +30,7 @@ class LiquidNeuralNetwork(nn.Module):
             x = layer(x)
         return self.output_layer(x)
 
+# Define the ODE Solver
 class ODESolver(nn.Module):
     def __init__(self, model, dt):
         super(ODESolver, self).__init__()
@@ -42,6 +47,7 @@ class ODESolver(nn.Module):
         outputs = self.forward(x)
         return nn.functional.cross_entropy(outputs, y)
 
+# Training function
 def train(model, dataloader, optimizer, epochs):
     model.train()
     for epoch in range(epochs):
@@ -56,6 +62,7 @@ def train(model, dataloader, optimizer, epochs):
             total_loss += loss.item()
         print(f'Epoch {epoch+1}, loss: {total_loss/len(dataloader)}')
 
+# Evaluation function
 def evaluate_accuracy(model, dataloader):
     model.eval()
     correct = 0
@@ -67,39 +74,57 @@ def evaluate_accuracy(model, dataloader):
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-    
+
     accuracy = 100 * correct / total
     print(f'Accuracy: {accuracy:.2f}%')
     return accuracy
 
+
+
+
+
+
+
+# Visualization function
 def visualize_liquid_diagram(model, input_data, num_steps=100):
     model.eval()
     with torch.no_grad():
         hidden_states = []
         x = input_data
         for _ in range(num_steps):
-            for layer in model.model.layers:
+            for layer in model.model.layers:  # Access layers from the model inside ODESolver
                 x = layer(x)
             hidden_states.append(x.numpy())
-    
-    hidden_states = np.array(hidden_states)
-    
-    plt.figure(figsize=(10, 6))
-    for i in range(min(5, hidden_states.shape[2])):  # Plot first 5 dimensions
-        plt.plot(range(num_steps), hidden_states[:, 0, i], label=f'Dimension {i+1}')
-    
-    plt.title('Liquid Neural Network: Hidden State Trajectory')
-    plt.xlabel('Time Steps')
-    plt.ylabel('Hidden State Value')
-    plt.legend()
-    plt.show()
+
+        hidden_states = np.array(hidden_states)
+
+        if hidden_states.size == 0:
+            print("No hidden states to visualize.")
+            return
+
+        plt.figure(figsize=(10, 6))
+        for i in range(min(5, hidden_states.shape[2])):  # Plot first 5 dimensions
+            plt.plot(range(num_steps), hidden_states[:, 0, i], label=f'Dimension {i+1}')
+
+        plt.title('Liquid Neural Network: Hidden State Trajectory')
+        plt.xlabel('Time Steps')
+        plt.ylabel('Hidden State Value')
+        plt.legend()
+        plt.show()
+
+
 
 # Main execution
 if __name__ == "__main__":
     # Load MNIST dataset
     transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
-    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
-    test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+    try:
+        train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+        test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+    except Exception as e:
+        print(f"Error loading dataset: {e}")
+        print("Try downloading the dataset manually and placing it in the './data' directory.")
+        exit()
 
     train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)
@@ -117,11 +142,14 @@ if __name__ == "__main__":
     ode_solver = ODESolver(model, dt=0.1)
     optimizer = optim.Adam(ode_solver.parameters(), lr=learning_rate)
 
+    print("Starting training...")
     train(ode_solver, train_loader, optimizer, epochs)
 
     # Evaluate accuracy
+    print("Evaluating accuracy...")
     accuracy = evaluate_accuracy(ode_solver, test_loader)
 
     # Visualize liquid diagram
+    print("Visualizing hidden state trajectory...")
     sample_input = next(iter(test_loader))[0][0].view(1, -1)  # Take the first test sample
     visualize_liquid_diagram(ode_solver, sample_input)
