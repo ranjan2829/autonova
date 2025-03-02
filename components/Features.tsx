@@ -26,31 +26,11 @@ const features = [
     description: 'Explore complex data relationships through interactive and customizable visualization tools.',
     icon: PieChart,
     color: 'from-pink-500 to-rose-500',
-  },
-  {
-    name: 'Data Integration Hub',
-    description: 'Connect to any data source with our extensive library of pre-built connectors and APIs.',
-    icon: Layers,
-    color: 'from-rose-500 to-orange-500',
-  },
-  {
-    name: 'Lightning-fast Performance',
-    description: 'Process millions of data points in seconds with our optimized cloud infrastructure.',
-    icon: Zap,
-    color: 'from-orange-500 to-amber-500',
-  },
-  {
-    name: 'Enterprise-grade Security',
-    description: 'Rest easy knowing your data is protected with end-to-end encryption and compliance controls.',
-    icon: Shield,
-    color: 'from-amber-500 to-yellow-500',
-  },
-  {
-    name: 'Collaborative Workspace',
-    description: 'Share insights and collaborate with team members through interactive reports and dashboards.',
-    icon: Users,
-    color: 'from-yellow-500 to-lime-500',
-  },
+  }
+ 
+
+  
+ 
 ];
 
 const Features = () => {
@@ -100,33 +80,10 @@ const Features = () => {
           <div className="absolute inset-0 flex items-center" aria-hidden="true">
             <div className="w-full border-t border-gray-700"></div>
           </div>
-          <div className="relative flex justify-center">
-            <span className="px-6 bg-gray-900 text-lg font-medium text-indigo-400">
-              Trusted by industry leaders
-            </span>
-          </div>
+          
         </div>
         
-        <div className="mt-12 grid grid-cols-2 gap-8 md:grid-cols-6">
-          <div className="col-span-1 flex justify-center items-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <img className="h-12" src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg" alt="Tuple" />
-          </div>
-          <div className="col-span-1 flex justify-center items-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <img className="h-12" src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg" alt="Mirage" />
-          </div>
-          <div className="col-span-1 flex justify-center items-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <img className="h-12" src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg" alt="StaticKit" />
-          </div>
-          <div className="col-span-1 flex justify-center items-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <img className="h-12" src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg" alt="Transistor" />
-          </div>
-          <div className="col-span-1 flex justify-center items-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <img className="h-12" src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg" alt="Workcation" />
-          </div>
-          <div className="col-span-1 flex justify-center items-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <img className="h-12" src="https://tailwindui.com/img/logos/laravel-logo-gray-400.svg" alt="Laravel" />
-          </div>
-        </div>
+        
       </div>
     </div>
   );

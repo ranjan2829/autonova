@@ -11,8 +11,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Features />
+      
+      
       <LiveDemo />
-      <Footer />
     </main>
   );
 }
