@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from 'react';
 import { Database, Menu, X, ChevronDown } from 'lucide-react';
 
@@ -22,13 +21,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-gray-900/80 backdrop-blur-md shadow-lg' 
-          : 'bg-transparent'
-      }`}
-    >
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-gray-900/80 backdrop-blur-md shadow-lg' : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex items-center">
@@ -70,8 +65,8 @@ const Navbar = () => {
             <a href="#contact" className="px-4 py-2 text-sm font-medium text-indigo-300 hover:text-white transition-colors duration-200">
               Contact Sales
             </a>
-            <a 
-              href="#signup" 
+            <a
+              href="#signup"
               className="ml-4 px-5 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-500 text-white font-medium text-sm hover:shadow-lg hover:shadow-indigo-500/50 transition-all duration-300 transform hover:scale-105"
             >
               Get Started

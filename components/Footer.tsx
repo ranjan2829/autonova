@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { Database, Github, Twitter, Linkedin, Mail, ArrowRight } from 'lucide-react';
 
@@ -141,7 +140,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="mt-12 border-t border-gray-800 pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>

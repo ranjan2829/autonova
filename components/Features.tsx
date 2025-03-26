@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { BarChart3, Database, LineChart, PieChart, Layers, Zap, Shield, Users } from 'lucide-react';
 
@@ -27,10 +26,6 @@ const features = [
     icon: PieChart,
     color: 'from-pink-500 to-rose-500',
   }
- 
-
-  
- 
 ];
 
 const Features = () => {
@@ -53,7 +48,7 @@ const Features = () => {
 
         <div className="mt-20">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <div 
                 key={feature.name} 
                 className="relative bg-gray-800 rounded-xl p-8 overflow-hidden border border-gray-700 hover:border-indigo-500/50 transition-all duration-300 group"
@@ -80,10 +75,7 @@ const Features = () => {
           <div className="absolute inset-0 flex items-center" aria-hidden="true">
             <div className="w-full border-t border-gray-700"></div>
           </div>
-          
         </div>
-        
-        
       </div>
     </div>
   );

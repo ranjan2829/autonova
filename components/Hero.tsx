@@ -1,30 +1,29 @@
-"use client";
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight, Database, LineChart, Zap, ChevronDown } from 'lucide-react';
 
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   useEffect(() => {
     if (!canvasRef.current) return;
-    
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     // Set canvas dimensions
     const setCanvasDimensions = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    
+
     setCanvasDimensions();
     window.addEventListener('resize', setCanvasDimensions);
-    
+
     // Particle settings
     const particlesArray: Particle[] = [];
     const numberOfParticles = 100;
-    
+
     class Particle {
       x: number;
       y: number;
@@ -61,13 +60,13 @@ const Hero = () => {
         ctx.fill();
       }
     }
-    
+
     const init = () => {
       for (let i = 0; i < numberOfParticles; i++) {
         particlesArray.push(new Particle());
       }
     };
-    
+
     const connectParticles = () => {
       if (!ctx) return;
       for (let a = 0; a < particlesArray.length; a++) {
@@ -87,7 +86,7 @@ const Hero = () => {
         }
       }
     };
-    
+
     const animate = () => {
       if (!ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -99,10 +98,10 @@ const Hero = () => {
       connectParticles();
       requestAnimationFrame(animate);
     };
-    
+
     init();
     animate();
-    
+
     return () => {
       window.removeEventListener('resize', setCanvasDimensions);
     };
@@ -111,7 +110,7 @@ const Hero = () => {
   return (
     <div className="relative overflow-hidden bg-gray-900 min-h-screen flex items-center" id="home">
       <canvas ref={canvasRef} className="absolute inset-0 z-0"></canvas>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
